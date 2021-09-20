@@ -30,7 +30,8 @@ class PopularBooks extends Component {
       status: values.status,
       email: values.email,
     };
-    let books = await axios.post(`http://localhost:8000/create-book`, booklist);
+    // let books = await axios.post(`http://localhost:8000/create-book`, booklist);
+    let books = await axios.post(`https://yaseen-booksbackend.herokuapp.com/create-book`, booklist);
     this.setState({
       bookData: books.data,
     });
@@ -38,7 +39,7 @@ class PopularBooks extends Component {
   handleDelete = async (id) => {
     let bookid = id;
     let deletebook = await axios.delete(
-      `http://localhost:8000/delete-book/${bookid}`
+      `https://yaseen-booksbackend.herokuapp.com/delete-book/${bookid}`
     );
     this.setState({
       bookData: deletebook.data,
