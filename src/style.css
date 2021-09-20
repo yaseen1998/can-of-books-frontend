@@ -1,4 +1,12 @@
 .Carousel{
     width: 50% !important;
     margin: auto;
+    /* position: absolute; */
+    position: absolute;
+    top: 0;
+    left: 30%
+}
+
+.mainForm{
+    width:20%
 }
