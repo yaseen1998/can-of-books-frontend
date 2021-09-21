@@ -54,7 +54,7 @@ form=(props)=>{
         <ErrorMessage name="email" /> 
         <br/>
         <hr/>
-        <button type="submit" >add new</button>
+        <button type="submit" >{this.props.buttonbook}</button>
     </form>
     
 }
@@ -73,10 +73,10 @@ schema = () => {
             <>
                  <Formik
           initialValues={{
-              title : '',
-              description:'',
-              status:'',
-              email:''
+              title : this.props.title,
+              description:this.props.description,
+              status:this.props.status,
+              email:this.props.email
           }}
           onSubmit={this.props.handleSubmit }
           render={this.form}

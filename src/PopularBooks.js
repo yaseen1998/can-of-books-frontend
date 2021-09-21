@@ -13,10 +13,17 @@ class PopularBooks extends Component {
       bookData: [],
       data:[],
       showform: false,
-      showaddbutton:true
+      showaddbutton:true,
+      showupdate:false,
+      bookid:'',
+      buttonbook:"",
+      title: '',
+      description: '',
+      status: '',
+      email: '',
     };
   }
-
+// start mount
   componentDidMount = () => {
     axios
       .get(`https://yaseen-booksbackend.herokuapp.com/books`)
@@ -27,6 +34,7 @@ class PopularBooks extends Component {
       });
   };
   
+  //start submit
   handleSubmit = async (values) => {
     
     const booklist = {
@@ -35,15 +43,27 @@ class PopularBooks extends Component {
       status: values.status,
       email: values.email,
     };
-    // let books = await axios.post(`http://localhost:8000/create-book`, booklist);
-    let books = await axios.post(`https://yaseen-booksbackend.herokuapp.com/create-book`, booklist);
+    let books
+if(!this.state.showupdate){
+   books = await axios.post(`https://yaseen-booksbackend.herokuapp.com/create-book`, booklist);
     
-    this.variable.push(books.data)
-console.log(this.variable);
+}
+    // let books = await axios.post(`http://localhost:8000/create-book`, booklist);
+  else {  
+    let updatebooks = await axios.put(
+      `http://localhost:8000/update-book/${this.state.bookid}`, booklist);
+    }
+
     this.setState({
-      bookData:books.data
+      bookData:books.data,
+      showupdate:false
     });
+    
+    console.log(this.state.bookData);
   };
+
+
+//start delete
   handleDelete = async (id) => {
     let bookid = id;
     let deletebook = await axios.delete(
@@ -53,16 +73,43 @@ console.log(this.variable);
       bookData: deletebook.data,
     });
   };
-  showform = () => {
+
+
+//start update
+  handleupdate = async (id,namemovie,descriptionmovie,statusmovie,emailmovie) => {
+    setTimeout(()=>{ this.setState({showform: true}); }, 500)
     this.setState({
-      showform: true,
-      showaddbutton:false
+      showupdate:true,
+      showform: false,
+      showaddbutton:true,
+      buttonbook:'update book',
+      bookid:id,
+      title:namemovie,
+      description:descriptionmovie,
+      status:statusmovie,
+      email:emailmovie
+    });
+
+  }
+  
+// start show
+  showform = () => {
+    setTimeout(()=>{ this.setState({showform: true}); }, 500)
+    this.setState({
+      showform: false,
+      showaddbutton:false,
+      buttonbook:'add book',
+      title:'',
+      description:'',
+      status:'',
+      email:''
     });
   };
   closeform = () => {
     this.setState({
       showform: false,
-      showaddbutton:true
+      showaddbutton:true,
+      
     });
   };
   render() {
@@ -78,7 +125,14 @@ console.log(this.variable);
   }
           <br/>
             <hr/>
-          {this.state.showform && <Addform handleSubmit={this.handleSubmit} />}
+          {this.state.showform && <Addform
+          buttonbook={this.state.buttonbook} 
+          title={this.state.title}
+          description={this.state.description}
+        status={this.state.status}
+      email={this.state.email}
+      handleSubmit={this.handleSubmit}
+      />}
           <br/>
             <hr/>
             {this.state.showform &&
@@ -88,6 +142,9 @@ console.log(this.variable);
             close
           </button>}
         </div>
+
+
+
 
         {this.state.bookData.length > 0 && (
           <Carousel indicators={false} className="Carousel">
@@ -108,6 +165,10 @@ console.log(this.variable);
                       {" "}
                       remove item
                     </button>
+                    <button onClick={() => this.handleupdate(Element._id,Element.title,Element.description,Element.status,Element.email)}>
+                      {" "}
+                      update item
+                    </button>
                     {/* {this.setState({key:Element._id})} */}
                   </Carousel.Caption>
                 </Carousel.Item>
@@ -115,6 +176,11 @@ console.log(this.variable);
             })}
           </Carousel>
         )}
+
+
+
+
+
         {this.state.bookData.length === 0 && (
           <h3 className='empty'>The book collection is empty.</h3>
         )}
