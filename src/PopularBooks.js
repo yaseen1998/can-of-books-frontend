@@ -4,10 +4,14 @@ import { Carousel, Caption } from "react-bootstrap";
 import style from "./style.css";
 import Addform from "./components/Addform";
 class PopularBooks extends Component {
+  
   constructor(props) {
+     
     super(props);
+    this.variable = [];
     this.state = {
       bookData: [],
+      data:[],
       showform: false,
       showaddbutton:true
     };
@@ -22,8 +26,9 @@ class PopularBooks extends Component {
         });
       });
   };
-
+  
   handleSubmit = async (values) => {
+    
     const booklist = {
       title: values.title,
       description: values.description,
@@ -32,8 +37,11 @@ class PopularBooks extends Component {
     };
     // let books = await axios.post(`http://localhost:8000/create-book`, booklist);
     let books = await axios.post(`https://yaseen-booksbackend.herokuapp.com/create-book`, booklist);
+    
+    this.variable.push(books.data)
+console.log(this.variable);
     this.setState({
-      bookData: books.data,
+      bookData:books.data
     });
   };
   handleDelete = async (id) => {
@@ -60,6 +68,7 @@ class PopularBooks extends Component {
   render() {
     return (
       <div>
+        <h1> you must refresh the page for add item this issue just in heroku not in localhost</h1>
         <div className='mainForm'>
           {this.state.showaddbutton &&
           <button type="button" onClick={this.showform}>
