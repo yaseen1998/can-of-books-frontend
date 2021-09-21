@@ -68,7 +68,7 @@ console.log(this.variable);
   render() {
     return (
       <div>
-        <h1> you must refresh the page for add item this issue just in heroku not in localhost</h1>
+        {/* <h1> you must refresh the page for add item this issue just in heroku not in localhost</h1> */}
         <div className='mainForm'>
           {this.state.showaddbutton &&
           <button type="button" onClick={this.showform}>
@@ -116,7 +116,7 @@ console.log(this.variable);
           </Carousel>
         )}
         {this.state.bookData.length === 0 && (
-          <h3>The book collection is empty.</h3>
+          <h3 className='empty'>The book collection is empty.</h3>
         )}
       </div>
     );
