@@ -11,7 +11,6 @@ class PopularBooks extends Component {
     this.variable = [];
     this.state = {
       bookData: [],
-      data:[],
       showform: false,
       showaddbutton:true,
       showupdate:false,
@@ -21,6 +20,7 @@ class PopularBooks extends Component {
       description: '',
       status: '',
       email: '',
+      formikclass:''
     };
   }
 // start mount
@@ -44,22 +44,21 @@ class PopularBooks extends Component {
       email: values.email,
     };
     let books
-if(!this.state.showupdate){
-   books = await axios.post(`https://yaseen-booksbackend.herokuapp.com/create-book`, booklist);
-    
+if(this.state.showupdate){
+   
+    books = await axios.put(
+    `https://yaseen-booksbackend.herokuapp.com/update-book/${this.state.bookid}`, booklist);
+    // window.location.reload();
 }
     // let books = await axios.post(`http://localhost:8000/create-book`, booklist);
   else {  
-    let updatebooks = await axios.put(
-      `http://localhost:8000/update-book/${this.state.bookid}`, booklist);
+    books = await axios.post(`https://yaseen-booksbackend.herokuapp.com/create-book`, booklist);
     }
 
     this.setState({
       bookData:books.data,
-      showupdate:false
+      showupdate:false,
     });
-    
-    console.log(this.state.bookData);
   };
 
 
@@ -87,7 +86,8 @@ if(!this.state.showupdate){
       title:namemovie,
       description:descriptionmovie,
       status:statusmovie,
-      email:emailmovie
+      email:emailmovie,
+      formikclass:'updatebook'
     });
 
   }
@@ -102,7 +102,8 @@ if(!this.state.showupdate){
       title:'',
       description:'',
       status:'',
-      email:''
+      email:'',
+      formikclass:'addbook'
     });
   };
   closeform = () => {
@@ -132,6 +133,7 @@ if(!this.state.showupdate){
         status={this.state.status}
       email={this.state.email}
       handleSubmit={this.handleSubmit}
+      formikclass={this.state.formikclass}
       />}
           <br/>
             <hr/>
@@ -146,7 +148,7 @@ if(!this.state.showupdate){
 
 
 
-        {this.state.bookData.length > 0 && (
+        {this.state.bookData.length > 0  &&(
           <Carousel indicators={false} className="Carousel">
             {this.state.bookData.map((Element, i) => {
               return (

@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import PopularBooks from '../PopularBooks';
 import { Formik, Field, ErrorMessage ,FieldArray} from "formik"
 import * as Yup from "yup"
+import style from "../style.css";
  class Addform extends Component {
     constructor(props) {
         super(props);
@@ -28,7 +29,7 @@ onsubmit=(values)=>{
     
 }
 form=(props)=>{
-    return  <form onSubmit={props.handleSubmit}>
+    return  <form onSubmit={props.handleSubmit} className={this.props.formikclass}>
          <label htmlFor=""> title</label>
         <Field name = "title"/>
         <br/>
@@ -71,7 +72,7 @@ schema = () => {
     render() {
         return (
             <>
-                 <Formik
+                 <Formik 
           initialValues={{
               title : this.props.title,
               description:this.props.description,
