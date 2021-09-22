@@ -152,7 +152,7 @@ if(this.state.showupdate){
           <Carousel indicators={false} className="Carousel">
             {this.state.bookData.map((Element, i) => {
               return (
-                <Carousel.Item>
+                <Carousel.Item key={i}>
                   <img
                     className="d-block w-100"
                     src="https://colorcasters.com/wp-content/uploads/2014/05/Black-300x300.jpeg"
