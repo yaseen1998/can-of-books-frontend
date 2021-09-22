@@ -3,6 +3,7 @@ import React, { Component } from "react";
 import { Carousel, Caption } from "react-bootstrap";
 import style from "./style.css";
 import Addform from "./components/Addform";
+import {Button} from 'react-bootstrap'
 class PopularBooks extends Component {
   
   constructor(props) {
@@ -119,13 +120,12 @@ if(this.state.showupdate){
         {/* <h1> you must refresh the page for add item this issue just in heroku not in localhost</h1> */}
         <div className='mainForm'>
           {this.state.showaddbutton &&
-          <button type="button" onClick={this.showform}>
+          <Button type="button" onClick={this.showform} variant="success" className='addbutton'>
             {" "}
             add book
-          </button>
+          </Button>
   }
-          <br/>
-            <hr/>
+         
           {this.state.showform && <Addform
           buttonbook={this.state.buttonbook} 
           title={this.state.title}
@@ -135,14 +135,13 @@ if(this.state.showupdate){
       handleSubmit={this.handleSubmit}
       formikclass={this.state.formikclass}
       />}
-          <br/>
-            <hr/>
+
             {this.state.showform &&
-          <button type="button" onClick={this.closeform}>
+          <Button type="button" onClick={this.closeform} className='closebutton' variant="dark">
              {" "}
              <br/>
             close
-          </button>}
+          </Button>}
         </div>
 
 
@@ -163,14 +162,14 @@ if(this.state.showupdate){
                     <p className="ele">Description :{Element.description}</p>
                     <p className="ele">Status :{Element.status}</p>
                     <p className="ele">E-mail :{Element.email}</p>
-                    <button onClick={() => this.handleDelete(Element._id)}>
+                    <Button onClick={() => this.handleDelete(Element._id)} variant="danger">
                       {" "}
                       remove item
-                    </button>
-                    <button onClick={() => this.handleupdate(Element._id,Element.title,Element.description,Element.status,Element.email)}>
+                    </Button>{' '}
+                    <Button  variant="info" onClick={() => this.handleupdate(Element._id,Element.title,Element.description,Element.status,Element.email)}>
                       {" "}
                       update item
-                    </button>
+                    </Button>
                     {/* {this.setState({key:Element._id})} */}
                   </Carousel.Caption>
                 </Carousel.Item>

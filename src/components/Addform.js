@@ -3,6 +3,7 @@ import React, { Component } from 'react'
 import { Formik, Field, ErrorMessage} from "formik"
 import * as Yup from "yup"
 import style from "../style.css";
+import {Button} from 'react-bootstrap'
  class Addform extends Component {
     constructor(props) {
         super(props);
@@ -55,7 +56,7 @@ form=(props)=>{
         <ErrorMessage name="email" /> 
         <br/>
         <hr/>
-        <button type="submit" >{this.props.buttonbook}</button>
+        <Button type="submit"  variant="dark" >{this.props.buttonbook}  </Button>
     </form>
     
 }

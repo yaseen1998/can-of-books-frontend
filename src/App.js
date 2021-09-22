@@ -3,6 +3,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import PopularBooks from './PopularBooks';
 import LoginButton from './components/LoginButton';
 import LogoutButton from './components/LogoutButton';
+import Header from './components/Header';
 import { withAuth0 } from '@auth0/auth0-react';
 import axios from "axios";
 class App extends Component {
@@ -32,18 +33,16 @@ class App extends Component {
   
     return (
       <div>
+         <Header/>
         {/* <button onClick={() =>{this.first();this.second()}}></button> */}
-        <button onClick={this.callApi}></button>
+        {/* <button onClick={this.callApi}></button> */}
         {this.props.auth0.isAuthenticated &&
         <div>
-        <LogoutButton/>
-        <img src = {this.props.auth0.user.picture}/>
-        <h1>{this.props.auth0.user.email}</h1>
+            <PopularBooks/>
         </div>
         }
-       <LoginButton/>
      
-        <PopularBooks/>
+      
       </div>
     )
   }

@@ -3,8 +3,8 @@
     margin: auto;
     /* position: absolute; */
     position: absolute;
-    top: 0;
-    left: 30%
+    top: 100px;
+    left: 40%
 }
 
 .mainForm{
@@ -17,7 +17,22 @@
 
 }
 .updatebook{
-    background-color: black;
+    /* background-color: black;
     font-size: 20px;
-    color: white;
+    color: white; */
+    position: absolute;
+    left: 10%;
+    border: solid 2px black;
+    margin:5px;
+    padding: 15px;
 }
+.closebutton{
+    position: absolute;
+    top: 500px;
+    left: 300px;
+}
+/* .addbutton{
+    position: absolute;
+    top: 110px;
+    left: 270px; 
+} */
